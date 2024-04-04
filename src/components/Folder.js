@@ -3,17 +3,19 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   position: relative;
+  max-width: 360px;
+  background: #fff2e1;
 `;
 
 const File = styled.div`
   display: flex;
   border-left: 2px solid lavender;
-  padding-left: 20px;
+  padding-left: 2px;
 `;
 
 const FolderWrapper = styled.div`
   display: flex;
-  background-color: lavender;
+  background-color: #d1bb9e;
   margin: 4px;
   padding: 2px 8px 2px 8px;
   border-radius: 0cap;
@@ -64,7 +66,7 @@ function Folder({ explorer, handleInsertNode }) {
                 setShowInput({ type: "file", show: true });
               }}
             >
-              File +
+              📄 +
             </div>
             <div
               className="option"
@@ -73,7 +75,7 @@ function Folder({ explorer, handleInsertNode }) {
                 setShowInput({ type: "folder", show: true });
               }}
             >
-              Folder +
+              📁 +
             </div>
           </div>
         </FolderWrapper>
@@ -85,9 +87,9 @@ function Folder({ explorer, handleInsertNode }) {
               <span className="input-icon">📁</span>
             )}
             <input
-              autofocus
+              autoFocus
               onKeyDown={(e) => onAddFolder(e)}
-              onBlur={() => setShowInput({ ...showInput, show: false })}
+              onBlur={() => setShowInput({ type: "file", show: false })}
               placeholder={
                 showInput.type === "file" ? "File Name" : "Folder Name"
               }
