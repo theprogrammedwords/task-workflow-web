@@ -7,35 +7,51 @@ const Wrapper = styled.div`
   div {
     color: white;
   }
+
+  input {
+    background-color: #b8a6b4;
+  }
 `;
 
 const File = styled.div`
   display: flex;
   border-left: 2px solid #83727f;
   padding-left: 2px;
+  margin: 2px;
+  width: 200px;
   cursor: pointer;
+
+  div:hover {
+    background-color: #b8a6b4;
+    width: 200px;
+  }
 `;
 
 const FolderWrapper = styled.div`
   display: flex;
-  background-color: #83727f;
   margin: 4px;
   padding: 2px 8px 2px 8px;
-  border-radius: 0cap;
+  background-color: #83727f;
   justify-content: space-between;
 
   .folder-item {
     cursor: pointer;
+    width: 150px;
+  }
+
+  .folder-item:hover {
+    background-color: #b8a6b4;
   }
 
   .optionItems {
     display: flex;
     .option {
       padding: 0px 4px 0px 4px;
-      background-color: #b8a6b4;
-
       margin-right: 4px;
       cursor: pointer;
+    }
+    .option:hover {
+      background-color: #b8a6b4;
     }
   }
 `;
@@ -124,8 +140,7 @@ function Folder({ explorer, handleInsertNode }) {
   } else {
     return (
       <File draggable className="file">
-        {" "}
-        📄 {explorer.name}
+        <div>📄 {explorer.name}</div>
       </File>
     );
   }
