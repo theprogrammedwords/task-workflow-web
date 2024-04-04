@@ -13,6 +13,7 @@ const File = styled.div`
   display: flex;
   border-left: 2px solid #83727f;
   padding-left: 2px;
+  cursor: pointer;
 `;
 
 const FolderWrapper = styled.div`
@@ -22,6 +23,10 @@ const FolderWrapper = styled.div`
   padding: 2px 8px 2px 8px;
   border-radius: 0cap;
   justify-content: space-between;
+
+  .folder-item {
+    cursor: pointer;
+  }
 
   .optionItems {
     display: flex;
@@ -60,7 +65,9 @@ function Folder({ explorer, handleInsertNode }) {
     return (
       <Wrapper>
         <FolderWrapper className="folder" onClick={() => setExpand(!expand)}>
-          <div>📁 {explorer.name}</div>
+          <div draggable className="folder-item">
+            📁 {explorer.name}
+          </div>
           <div className="optionItems">
             <div
               className="option"
@@ -104,14 +111,23 @@ function Folder({ explorer, handleInsertNode }) {
         >
           {explorer?.items?.map((exp) => {
             return (
-              <Folder handleInsertNode={handleInsertNode} explorer={exp} />
+              <Folder
+                draggable
+                handleInsertNode={handleInsertNode}
+                explorer={exp}
+              />
             );
           })}
         </div>
       </Wrapper>
     );
   } else {
-    return <File className="file"> 📄 {explorer.name}</File>;
+    return (
+      <File draggable className="file">
+        {" "}
+        📄 {explorer.name}
+      </File>
+    );
   }
 }
 
