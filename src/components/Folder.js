@@ -3,19 +3,21 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   position: relative;
-  max-width: 360px;
-  background: #fff2e1;
+  span,
+  div {
+    color: white;
+  }
 `;
 
 const File = styled.div`
   display: flex;
-  border-left: 2px solid lavender;
+  border-left: 2px solid #83727f;
   padding-left: 2px;
 `;
 
 const FolderWrapper = styled.div`
   display: flex;
-  background-color: #d1bb9e;
+  background-color: #83727f;
   margin: 4px;
   padding: 2px 8px 2px 8px;
   border-radius: 0cap;
@@ -23,12 +25,13 @@ const FolderWrapper = styled.div`
 
   .optionItems {
     display: flex;
-  }
-  .option {
-    padding: 2px 4px 2px 4px;
-    border: 1px solid gray;
-    border-radius: 4px;
-    margin-right: 4px;
+    .option {
+      padding: 0px 4px 0px 4px;
+      background-color: #b8a6b4;
+
+      margin-right: 4px;
+      cursor: pointer;
+    }
   }
 `;
 

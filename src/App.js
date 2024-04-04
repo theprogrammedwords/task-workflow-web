@@ -15,8 +15,10 @@ function App() {
     setExplorerData(finalTree);
   };
   return (
-    <div className="App">
-      <Folder explorer={explorerData} handleInsertNode={handleInsertNode} />
+    <div className="app">
+      <div className="file-explorer">
+        <Folder explorer={explorerData} handleInsertNode={handleInsertNode} />
+      </div>
     </div>
   );
 }
