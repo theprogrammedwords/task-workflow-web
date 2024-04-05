@@ -8,14 +8,16 @@ const Node = ({ data, selected }) => {
   customTitle.backgroundColor = "#08c9bd";
 
   return (
-    <div>
-      <div style={{ ...style.body, ...(selected ? style.selected : []) }}>
-        <div style={customTitle}>{data.heading}</div>
-        <div style={style.contentWrapper}>{data.content}</div>
+    <>
+      <div>
+        <div style={{ ...style.body, ...(selected ? style.selected : []) }}>
+          <div style={customTitle}>{data.heading}</div>
+          <div style={style.contentWrapper}>{data.content}</div>
+        </div>
+        <Handle type="source" position={Position.Right} id="b" />
+        <Handle type="target" position={Position.Left} id="a" />
       </div>
-      <Handle type="source" position={Position.Right} id="b" />
-      <Handle type="target" position={Position.Left} id="a" />
-    </div>
+    </>
   );
 };
 
