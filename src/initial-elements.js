@@ -4,26 +4,50 @@ export const nodes = [
   {
     id: "1",
     type: "node",
-    data: { heading: "Send Message", content: "This is text 1" },
+    data: {
+      heading: "Task One",
+      name: "Name here",
+      parameter1: "Textarea here",
+      parameter2: "Checkbox here",
+      parameter3: "Select here",
+    },
     position: { x: 50, y: 200 },
   },
   {
     id: "2",
     type: "node",
-    data: { heading: "Send Message", content: "This is text 2" },
-    position: { x: 300, y: 100 },
+    data: {
+      heading: "Task Two",
+      name: "Name here",
+      parameter1: "Textarea here",
+      parameter2: "Checkbox here",
+      parameter3: "Select here",
+    },
+    position: { x: 250, y: 400 },
   },
   {
     id: "3",
     type: "node",
-    data: { heading: "SeMnd Message", content: "This is text 2" },
-    position: { x: 900, y: 100 },
+    data: {
+      heading: "Task Three",
+      name: "Name here",
+      parameter1: "Textarea here",
+      parameter2: "Checkbox here",
+      parameter3: "Select here",
+    },
+    position: { x: 450, y: 450 },
   },
   {
     id: "4",
     type: "node",
-    data: { heading: "SeMnd Message", content: "This is text 2" },
-    position: { x: 200, y: 500 },
+    data: {
+      heading: "Task Four",
+      name: "Name here",
+      parameter1: "Textarea here",
+      parameter2: "Checkbox here",
+      parameter3: "Select here",
+    },
+    position: { x: 50, y: 200 },
   },
 ];
 
