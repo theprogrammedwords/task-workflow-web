@@ -1,11 +1,22 @@
 .app { 
-  height: 100vh;
+  height: calc(100vh - 28px);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .file-explorer {
-  height: 100vh;
+  height: calc(100vh - 28px);
   background-color: #4f384a;
   width: 360px;
-  border-right: 2px solid #B8A6B4;
+  border-right: 3px solid #B8A6B4;
+}
+
+.nav-bar{
+  background-color: #352732;
+  border-bottom: 3px solid #51424E;
+  border-top: 3px solid #51424E;
+  padding: 4px;
+  text-align: center;
+  span {
+    color: white;
+  }
 }

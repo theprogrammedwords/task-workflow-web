@@ -29,7 +29,7 @@ const File = styled.div`
 
 const FolderWrapper = styled.div`
   display: flex;
-  margin: 4px;
+  margin: 0px 4px 4px 4px;
   padding: 2px 8px 2px 8px;
   background-color: #83727f;
   justify-content: space-between;
@@ -37,10 +37,6 @@ const FolderWrapper = styled.div`
   .folder-item {
     cursor: pointer;
     width: 150px;
-  }
-
-  .folder-item:hover {
-    background-color: #b8a6b4;
   }
 
   .optionItems {

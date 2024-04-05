@@ -16,6 +16,10 @@ function App() {
   };
   return (
     <div className="app">
+      <div className="nav-bar">
+        {" "}
+        <span>Task Workflow Web</span>
+      </div>
       <div className="file-explorer">
         <Folder explorer={explorerData} handleInsertNode={handleInsertNode} />
       </div>
