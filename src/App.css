@@ -1,6 +1,11 @@
 .app { 
-  height: calc(100vh - 28px);
+  height: calc(100vh);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  overflow: hidden
+}
+
+.container{
+  display: flex;
 }
 
 .file-explorer {

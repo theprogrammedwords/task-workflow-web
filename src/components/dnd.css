@@ -1,0 +1,30 @@
+.dndflow {
+  flex-direction: row;
+  display: flex;
+  height: 100vh;
+}
+
+.dndflow  {
+  border-right: 1px solid #eee;
+  padding: 15px 10px;
+  font-size: 12px;
+  background: #fcfcfc;
+  width: calc( 100vw - 400px);
+}
+
+
+
+.dndflow aside > * {
+  margin-bottom: 10px;
+  cursor: grab;
+}
+
+.dndflow aside .description {
+  margin-bottom: 10px;
+}
+
+.dndflow .reactflow-wrapper {
+  flex-grow: 1;
+  height: 100%;
+}
+

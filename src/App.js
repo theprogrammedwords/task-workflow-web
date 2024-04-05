@@ -1,9 +1,9 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import explorer from "./data/folderData";
 import Folder from "./components/Folder";
 import useTraverseTree from "./Hooks/use-traverse-tree";
+import OverviewFlow from "./components/Flow";
 
 function App() {
   const { insertNode } = useTraverseTree();
@@ -20,8 +20,13 @@ function App() {
         {" "}
         <span>Task Workflow Web</span>
       </div>
-      <div className="file-explorer">
-        <Folder explorer={explorerData} handleInsertNode={handleInsertNode} />
+      <div className="container">
+        <div className="file-explorer">
+          <Folder explorer={explorerData} handleInsertNode={handleInsertNode} />
+        </div>
+        <div className="flow-canvas">
+          <OverviewFlow />
+        </div>
       </div>
     </div>
   );
