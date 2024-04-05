@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
+
 import ReactFlow, {
   addEdge,
   Background,
@@ -7,6 +8,7 @@ import ReactFlow, {
   ReactFlowProvider,
   MiniMap,
   Controls,
+  ControlButton,
 } from "reactflow";
 
 // Components
@@ -42,7 +44,8 @@ const OverviewFlow = () => {
   const onInit = (reactFlowInstance) => setReactFlowInstance(reactFlowInstance);
 
   const minimapStyle = {
-    height: 120,
+    height: 200,
+    border: "2px solid #b8a6b4",
   };
 
   const onDragOver = (event) => {
@@ -122,7 +125,11 @@ const OverviewFlow = () => {
     <>
       <div>
         <button className="download" onClick={saveHandler}>
-          Download
+          Download as JSON
+        </button>
+
+        <button className="download" onClick={saveHandler}>
+          Download as PNG
         </button>
       </div>
       <div className="dndflow">
@@ -144,8 +151,20 @@ const OverviewFlow = () => {
             </ReactFlow>
           </div>
 
-          <MiniMap style={minimapStyle} zoomable pannable />
-          <Controls />
+          <MiniMap zoomable nodeStrokeWidth={3} style={minimapStyle} pannable />
+
+          <Controls showFitView showInteractive>
+            <ControlButton
+              onClick={() => alert("Something magical just happened. ✨")}
+            >
+              💾
+            </ControlButton>
+            <ControlButton
+              onClick={() => alert("Something magical just happened. ✨")}
+            >
+              {"</>"}
+            </ControlButton>
+          </Controls>
 
           <SideBar
             isSelected={isSelected}
