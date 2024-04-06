@@ -161,6 +161,7 @@ const OverviewFlow = () => {
               onDrop={onDrop}
               onDragOver={onDragOver}
               attributionPosition="top-right"
+              fitView
             >
               <Background color="#aaa" gap={16} />
             </ReactFlow>

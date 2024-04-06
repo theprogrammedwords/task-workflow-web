@@ -21,7 +21,7 @@ const Node = ({ data, selected }) => {
     <>
       <div>
         <div style={{ ...style.body, ...(selected ? style.selected : []) }}>
-          <div style={customTitle}>{data.heading}</div>
+          <div style={customTitle}> {data.heading}</div>
           <div style={{ padding: "8px 20px" }}>
             <div style={style.contentWrapper}>Task Name : {data.name}</div>
             {data?.parameterArray?.map((item, index) => {
