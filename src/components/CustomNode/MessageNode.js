@@ -30,7 +30,11 @@ const Node = ({ data, selected }) => {
                   {item.type === "textarea" && (
                     <div>
                       <div>Task Description : </div>
-                      <textarea className="textarea" />
+                      <textarea
+                        disabled
+                        className="textarea"
+                        value={item?.value}
+                      />
                     </div>
                   )}
                   {item.type === "checkbox" && (
@@ -39,10 +43,12 @@ const Node = ({ data, selected }) => {
                         The task is completed ?{" "}
                       </label>
                       <input
+                        disabled
                         type="checkbox"
                         id="task-checkbox"
                         name="task-checkbox"
                         value="TaskCompleted"
+                        checked={item?.value}
                       />
                     </div>
                   )}
@@ -54,7 +60,13 @@ const Node = ({ data, selected }) => {
                       >
                         Task status :
                       </div>
-                      <select className="select" name="cars" id="cars">
+                      <select
+                        className="select"
+                        name="cars"
+                        id="cars"
+                        disabled
+                        value={item.value}
+                      >
                         <option value="start">Started</option>
                         <option value="in-progress">In-progress</option>
                         <option value="blocked">Blocked</option>

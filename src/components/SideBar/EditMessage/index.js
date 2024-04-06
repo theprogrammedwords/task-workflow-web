@@ -20,11 +20,13 @@ const EditMessageWrapper = styled.div`
 export default function EditMessage({ textRef, nodeName, setNodeName }) {
   return (
     <EditMessageWrapper className="updatenode__controls">
-      <label>Message Editor</label>
+      <label>
+        <strong>Task Editor</strong>
+      </label>
       <textarea
         ref={textRef}
         value={nodeName}
-        onChange={(evt) => setNodeName(evt.target.value)}
+        onChange={(evt) => console.log(evt.target, "yikes")}
       />
     </EditMessageWrapper>
   );
