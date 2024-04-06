@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useState } from "react";
 import { OptionWrapper } from "../../CustomNode/MessageNode";
 import { nodes } from "../../../initial-elements";
-import { deepClone, extractKeyName } from "../../../utils";
 const EditMessageWrapper = styled.div`
   background-color: #51424e;
   padding: 12px;
@@ -21,8 +20,31 @@ const EditMessageWrapper = styled.div`
     margin: 4px 0 4px 0;
   }
 `;
-export default function EditMessage({ textRef, nodeName, setNodeName }) {
-  const [nodesData, setNodesData] = useState(nodes);
+export default function CreateTask({ textRef, nodeName, setNodeName }) {
+  const initialData = {
+    id: "0",
+    type: "node",
+    data: {
+      heading: "",
+      name: "",
+      parameterArray: [
+        {
+          type: "textarea",
+          value: "",
+        },
+        {
+          type: "checkbox",
+          value: "",
+        },
+        {
+          type: "select",
+          value: "",
+        },
+      ],
+    },
+    position: { x: 50, y: 200 },
+  };
+  const [nodesData, setNodesData] = useState(initialData);
 
   const handleOnNodeDataChange = (e, type) => {
     if (type === "name") {
@@ -31,23 +53,22 @@ export default function EditMessage({ textRef, nodeName, setNodeName }) {
       setNodeName(data);
     }
   };
-
   return (
     <EditMessageWrapper className="updatenode__controls">
       <label>
-        <strong>Task Editor : {nodeName?.data?.heading}</strong>
+        <strong>Task Editor : {nodesData?.heading}</strong>
       </label>
       <br />
       <div style={{ display: "flex", marginBottom: "4px" }}>
         <span style={{ marginRight: "8px" }}>Task name</span>
         <input
           ref={textRef}
-          value={nodeName.data?.name}
+          value={nodesData?.name}
           onChange={(evt) => handleOnNodeDataChange(evt, "name")}
         />
       </div>
 
-      {nodeName?.data?.parameterArray?.map((item, index) => {
+      {nodesData?.parameterArray?.map((item, index) => {
         return (
           <OptionWrapper>
             {item.type === "textarea" && (

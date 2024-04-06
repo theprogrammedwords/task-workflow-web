@@ -4,7 +4,7 @@ import { Handle, Position } from "reactflow";
 import { style } from "./MessageNodeStyles";
 import styled from "styled-components";
 
-const OptionWrapper = styled.div`
+export const OptionWrapper = styled.div`
   display: flex;
 
   .textarea,

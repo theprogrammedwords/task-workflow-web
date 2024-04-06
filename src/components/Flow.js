@@ -27,6 +27,7 @@ import {
 import "reactflow/dist/style.css";
 import "./dnd.css";
 import "./updatenode.css";
+import CreateTask from "./SideBar/NodeCreator";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -55,6 +56,7 @@ const OverviewFlow = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNode, setSelectedNode] = useState(null);
   const [isSelected, setIsSelected] = useState(false);
+  const [showTaskCreator, setShowTaskCreator] = useState(false);
 
   const onInit = (reactFlowInstance) => setReactFlowInstance(reactFlowInstance);
 
@@ -97,7 +99,6 @@ const OverviewFlow = () => {
   );
 
   const [nodeName, setNodeName] = useState("Node 1");
-
   useEffect(() => {
     const node = nodes.filter((node) => {
       if (node.selected) return true;
@@ -123,7 +124,6 @@ const OverviewFlow = () => {
         if (node.id === selectedNode?.id) {
           node.data = {
             ...node.data,
-            content: nodeName || " ",
           };
         }
         return node;
@@ -136,6 +136,10 @@ const OverviewFlow = () => {
     else alert("Please connect source nodes (Cannot Save Flow)");
   };
 
+  const createNode = () => {
+    setShowTaskCreator(true);
+  };
+
   return (
     <>
       <ActionBarWrapper>
@@ -145,6 +149,10 @@ const OverviewFlow = () => {
 
         <button className="download" onClick={saveHandler}>
           Download as PNG
+        </button>
+
+        <button className="download" onClick={() => createNode()}>
+          Create a Node
         </button>
       </ActionBarWrapper>
       <div className="dndflow">
@@ -188,6 +196,8 @@ const OverviewFlow = () => {
             nodeName={nodeName}
             setNodeName={setNodeName}
           />
+
+          {showTaskCreator && <CreateTask />}
         </ReactFlowProvider>
       </div>
     </>
