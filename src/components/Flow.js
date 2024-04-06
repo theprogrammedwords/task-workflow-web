@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
-
+import styled from "styled-components";
 import ReactFlow, {
   addEdge,
   Background,
@@ -17,6 +17,7 @@ import Node from "./CustomNode/MessageNode";
 
 // Utils
 import { isAllNodeisConnected } from "../utils";
+
 import {
   nodes as initialNodes,
   edges as initialEdges,
@@ -32,6 +33,20 @@ const getId = () => `dndnode_${id++}`;
 
 const nodeTypes = { node: Node };
 
+const ActionBarWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  background-color: #b8a6b4;
+  padding: 4px;
+
+  button {
+    background-color: #83727f;
+    border: 1px solid #83727f;
+    margin: 4px;
+    color: white;
+  }
+`;
 const OverviewFlow = () => {
   const reactFlowWrapper = useRef(null);
   const textRef = useRef(null);
@@ -123,7 +138,7 @@ const OverviewFlow = () => {
 
   return (
     <>
-      <div>
+      <ActionBarWrapper>
         <button className="download" onClick={saveHandler}>
           Download as JSON
         </button>
@@ -131,7 +146,7 @@ const OverviewFlow = () => {
         <button className="download" onClick={saveHandler}>
           Download as PNG
         </button>
-      </div>
+      </ActionBarWrapper>
       <div className="dndflow">
         <ReactFlowProvider>
           <div className="reactflow-wrapper" ref={reactFlowWrapper}>

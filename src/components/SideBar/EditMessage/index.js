@@ -4,7 +4,10 @@ const EditMessageWrapper = styled.div`
   background-color: #51424e;
   padding: 12px;
   border-radius: 8px;
-
+  position: absolute;
+  top: 60px;
+  left: 46%;
+  width: 200px;
   textarea {
     border-radius: 8px;
   }

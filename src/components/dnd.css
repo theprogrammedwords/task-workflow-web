@@ -8,10 +8,8 @@
   border-right: 1px solid #eee;
   padding: 15px 10px;
   font-size: 12px;
-  background: #fcfcfc;
-  width: calc( 100vw - 400px);
+  width: calc( 100vw - 360px);
 }
-
 
 
 .dndflow aside > * {

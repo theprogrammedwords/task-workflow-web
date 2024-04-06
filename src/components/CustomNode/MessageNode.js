@@ -2,10 +2,20 @@ import React, { memo } from "react";
 
 import { Handle, Position } from "reactflow";
 import { style } from "./MessageNodeStyles";
+import styled from "styled-components";
 
+const OptionWrapper = styled.div`
+  display: flex;
+
+  .textarea,
+  .checkbox,
+  .select {
+    margin: 8px 0 8px 0;
+  }
+`;
 const Node = ({ data, selected }) => {
   let customTitle = { ...style.title };
-  customTitle.backgroundColor = "#08c9bd";
+  customTitle.backgroundColor = "#b8a6b4";
 
   return (
     <>
@@ -13,10 +23,48 @@ const Node = ({ data, selected }) => {
         <div style={{ ...style.body, ...(selected ? style.selected : []) }}>
           <div style={customTitle}>{data.heading}</div>
           <div style={{ padding: "8px 20px" }}>
-            <div style={style.contentWrapper}>{data.name}</div>
-            <div style={style.contentWrapper}>{data.parameter1}</div>
-            <div style={style.contentWrapper}>{data.parameter2}</div>
-            <div style={style.contentWrapper}>{data.parameter3}</div>
+            <div style={style.contentWrapper}>Task Name : {data.name}</div>
+            {data?.parameterArray?.map((item, index) => {
+              return (
+                <OptionWrapper>
+                  {item.type === "textarea" && (
+                    <div>
+                      <div>Task Description : </div>
+                      <textarea className="textarea" />
+                    </div>
+                  )}
+                  {item.type === "checkbox" && (
+                    <div className="checkbox">
+                      <label for="task-checkbox">
+                        The task is completed ?{" "}
+                      </label>
+                      <input
+                        type="checkbox"
+                        id="task-checkbox"
+                        name="task-checkbox"
+                        value="TaskCompleted"
+                      />
+                    </div>
+                  )}
+                  {item.type === "select" && (
+                    <>
+                      <div
+                        style={{ lineHeight: "2.5", marginRight: "4px" }}
+                        for="task-checkbox"
+                      >
+                        Task status :
+                      </div>
+                      <select className="select" name="cars" id="cars">
+                        <option value="start">Started</option>
+                        <option value="in-progress">In-progress</option>
+                        <option value="blocked">Blocked</option>
+                        <option value="done">Done</option>
+                      </select>
+                    </>
+                  )}
+                </OptionWrapper>
+              );
+            })}
           </div>
         </div>
         <Handle type="source" position={Position.Right} id="b" />

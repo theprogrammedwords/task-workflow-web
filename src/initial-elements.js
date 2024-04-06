@@ -7,45 +7,20 @@ export const nodes = [
     data: {
       heading: "Task One",
       name: "Name here",
-      parameter1: "Textarea here",
-      parameter2: "Checkbox here",
-      parameter3: "Select here",
-    },
-    position: { x: 50, y: 200 },
-  },
-  {
-    id: "2",
-    type: "node",
-    data: {
-      heading: "Task Two",
-      name: "Name here",
-      parameter1: "Textarea here",
-      parameter2: "Checkbox here",
-      parameter3: "Select here",
-    },
-    position: { x: 250, y: 400 },
-  },
-  {
-    id: "3",
-    type: "node",
-    data: {
-      heading: "Task Three",
-      name: "Name here",
-      parameter1: "Textarea here",
-      parameter2: "Checkbox here",
-      parameter3: "Select here",
-    },
-    position: { x: 450, y: 450 },
-  },
-  {
-    id: "4",
-    type: "node",
-    data: {
-      heading: "Task Four",
-      name: "Name here",
-      parameter1: "Textarea here",
-      parameter2: "Checkbox here",
-      parameter3: "Select here",
+      parameterArray: [
+        {
+          type: "textarea",
+          value: "TextareaValue",
+        },
+        {
+          type: "checkbox",
+          value: "checkboxValue",
+        },
+        {
+          type: "select",
+          value: "selectValue",
+        },
+      ],
     },
     position: { x: 50, y: 200 },
   },
