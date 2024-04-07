@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { OptionWrapper } from "../../CustomNode/MessageNode";
 import { nodes } from "../../../initial-elements";
+import { checkValuesNotNull } from "../../../utils";
 const EditMessageWrapper = styled.div`
   background-color: #51424e;
   padding: 12px;
@@ -33,49 +34,66 @@ export default function CreateTask({
   nodeName,
   setNodeName,
   setNodes,
+  setEdges,
+  setShowTaskCreator,
 }) {
-  const initialData = {
-    id: "0",
-    type: "node",
-    data: {
-      heading: "",
-      name: "",
-      label: "",
-      parameterArray: [
-        {
-          type: "textarea",
-          label: "",
-          value: null,
-        },
-        {
-          type: "checkbox",
-          label: "",
-          value: false,
-        },
-        {
-          type: "select",
-          label: "",
-          value: null,
-        },
-      ],
+  const initialData = [
+    {
+      id: "0",
+      type: "node",
+      data: {
+        heading: "",
+        name: "",
+        label: "",
+        parameterArray: [
+          {
+            type: "textarea",
+            label: "",
+            value: null,
+          },
+          {
+            type: "checkbox",
+            label: "",
+            value: false,
+          },
+          {
+            type: "select",
+            label: "",
+            value: null,
+          },
+        ],
+      },
+      position: { x: 50, y: 200 },
     },
-    position: { x: 50, y: 200 },
-  };
-  const [nodesData, setNodesData] = useState(initialData);
+  ];
+
+  let loadedData = JSON.parse(localStorage.getItem("nodesData"));
+  loadedData?.push(initialData[0]);
+  const activeIndex = loadedData ? loadedData?.length - 1 : 0;
+
+  const [nodesData, setNodesData] = useState(
+    JSON.parse(localStorage.getItem("nodesData")) ? loadedData : initialData
+  );
 
   const handleOnNodeDataChange = (e, type) => {
-    let updatedData = { ...nodesData };
+    let updatedData = [...nodesData];
 
-    if (type === "name") {
-      updatedData[type] = e.target.value;
+    updatedData[activeIndex].id = activeIndex + "";
+    updatedData[activeIndex].position.x =
+      activeIndex > 0 ? updatedData[activeIndex - 1].position?.x + 300 : 50;
+    updatedData[activeIndex].position.y =
+      activeIndex > 0 ? updatedData[activeIndex - 1].position?.y + 200 : 200;
+
+    if (type === "name" || type === "heading") {
+      updatedData[activeIndex].data[type] = e.target.value;
     } else {
-      const dataItemIndex = updatedData.data.parameterArray.findIndex(
-        (param) => param.type === type
-      );
+      const dataItemIndex = updatedData[
+        activeIndex
+      ]?.data?.parameterArray?.findIndex((param) => param.type === type);
 
       if (dataItemIndex !== -1) {
         const updatedDataItem = {
-          ...updatedData.data.parameterArray[dataItemIndex],
+          ...updatedData[activeIndex]?.data?.parameterArray[dataItemIndex],
         };
 
         if (type === "checkbox") {
@@ -84,7 +102,8 @@ export default function CreateTask({
           updatedDataItem.value = e.target.value;
         }
 
-        updatedData.data.parameterArray[dataItemIndex] = updatedDataItem;
+        updatedData[activeIndex].data.parameterArray[dataItemIndex] =
+          updatedDataItem;
       }
     }
 
@@ -92,27 +111,36 @@ export default function CreateTask({
   };
 
   const createTask = () => {
-    let data = [];
-    data.push(nodesData);
-    setNodes(data);
+    setEdges([]);
+    setShowTaskCreator(false);
+    setNodes(nodesData);
+    localStorage.setItem("nodesData", JSON.stringify(nodesData));
   };
 
   return (
     <EditMessageWrapper className="updatenode__controls">
       <label>
-        Task Editor :<input value={nodesData?.heading}></input>
+        <strong>Task Editor</strong>
+      </label>
+      <label>
+        Heading :
+        <input
+          style={{ marginLeft: "18px" }}
+          onChange={(evt) => handleOnNodeDataChange(evt, "heading")}
+          value={nodesData[activeIndex]?.heading}
+        ></input>
       </label>
       <br />
       <div style={{ display: "flex", marginBottom: "4px" }}>
         <span style={{ marginRight: "6px" }}>Task name:</span>
         <input
           ref={textRef}
-          value={nodesData?.name}
+          value={nodesData[activeIndex]?.name}
           onChange={(evt) => handleOnNodeDataChange(evt, "name")}
         />
       </div>
 
-      {nodesData?.data?.parameterArray?.map((item, index) => {
+      {nodesData[activeIndex]?.data?.parameterArray?.map((item, index) => {
         return (
           <OptionWrapper>
             {item.type === "textarea" && (

@@ -45,3 +45,17 @@ export function extractKeyName(expression) {
   // Extract the key name or return null if not found
   return match ? match[1] : null;
 }
+
+export function checkValuesNotNull(data) {
+  if (!data || !data.data || !data.data.parameterArray) {
+    return false;
+  }
+
+  for (let param of data.data.parameterArray) {
+    if (param.value === null) {
+      return false;
+    }
+  }
+
+  return true;
+}

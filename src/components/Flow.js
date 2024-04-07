@@ -170,7 +170,6 @@ const OverviewFlow = () => {
               onDrop={onDrop}
               onDragOver={onDragOver}
               attributionPosition="top-right"
-              fitView
             >
               <Background color="#aaa" gap={16} />
             </ReactFlow>
@@ -192,13 +191,19 @@ const OverviewFlow = () => {
           </Controls>
 
           <SideBar
-            isSelected={isSelected}
+            isSelected={false}
             textRef={textRef}
             nodeName={nodeName}
             setNodeName={setNodeName}
           />
 
-          {showTaskCreator && <CreateTask setNodes={setNodes} />}
+          {showTaskCreator && (
+            <CreateTask
+              setNodes={setNodes}
+              setEdges={setEdges}
+              setShowTaskCreator={setShowTaskCreator}
+            />
+          )}
         </ReactFlowProvider>
       </div>
     </>
