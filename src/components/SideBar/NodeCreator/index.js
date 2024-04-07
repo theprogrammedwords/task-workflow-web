@@ -209,6 +209,12 @@ export default function CreateTask({
       >
         Add node
       </button>
+      <button
+        style={{ background: "#b8a6b4", border: "0px" }}
+        onClick={() => setShowTaskCreator(false)}
+      >
+        Close
+      </button>
     </EditMessageWrapper>
   );
 }
