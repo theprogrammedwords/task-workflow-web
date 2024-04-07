@@ -36,7 +36,7 @@ const nodeTypes = { node: Node };
 
 const ActionBarWrapper = styled.div`
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   width: 100%;
   background-color: #b8a6b4;
   padding: 4px;
@@ -45,6 +45,8 @@ const ActionBarWrapper = styled.div`
     background-color: #83727f;
     border: 1px solid #83727f;
     margin: 4px;
+    padding: 8px;
+    border-radius: 8px;
     color: white;
   }
 `;
@@ -143,16 +145,15 @@ const OverviewFlow = () => {
   return (
     <>
       <ActionBarWrapper>
+        <button className="download" onClick={() => createNode()}>
+          Create a Node
+        </button>
         <button className="download" onClick={saveHandler}>
           Download as JSON
         </button>
 
         <button className="download" onClick={saveHandler}>
           Download as PNG
-        </button>
-
-        <button className="download" onClick={() => createNode()}>
-          Create a Node
         </button>
       </ActionBarWrapper>
       <div className="dndflow">
@@ -197,7 +198,7 @@ const OverviewFlow = () => {
             setNodeName={setNodeName}
           />
 
-          {showTaskCreator && <CreateTask />}
+          {showTaskCreator && <CreateTask setNodes={setNodes} />}
         </ReactFlowProvider>
       </div>
     </>
