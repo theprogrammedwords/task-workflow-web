@@ -73,6 +73,10 @@ function Folder({ explorer, handleInsertNode }) {
       setShowInput({ ...showInput, show: false });
     }
   };
+  const onDragStart = (event, nodeType) => {
+    event.dataTransfer.setData("application/reactflow", nodeType);
+    event.dataTransfer.effectAllowed = "move";
+  };
   if (explorer.isFolder) {
     return (
       <Wrapper>
@@ -80,6 +84,7 @@ function Folder({ explorer, handleInsertNode }) {
           <div draggable className="folder-item">
             📁 {explorer.name}
           </div>
+
           <div className="optionItems">
             <div
               className="option"
@@ -127,6 +132,7 @@ function Folder({ explorer, handleInsertNode }) {
                 draggable
                 handleInsertNode={handleInsertNode}
                 explorer={exp}
+                onDragStart={(event) => onDragStart(event, "input")}
               />
             );
           })}
@@ -135,7 +141,11 @@ function Folder({ explorer, handleInsertNode }) {
     );
   } else {
     return (
-      <File draggable className="file">
+      <File
+        draggable
+        className="file"
+        onDragStart={(event) => onDragStart(event, "input")}
+      >
         <div>📄 {explorer.name}</div>
       </File>
     );

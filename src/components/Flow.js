@@ -74,22 +74,49 @@ const OverviewFlow = () => {
 
   const onDrop = (event) => {
     event.preventDefault();
+
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
 
     const type = event.dataTransfer.getData("application/reactflow");
     const label = event.dataTransfer.getData("content");
-    console.log(reactFlowInstance, "reactIns");
     const position = reactFlowInstance.project({
       x: event.clientX - reactFlowBounds.left,
       y: event.clientY - reactFlowBounds.top,
     });
     const newNode = {
       id: getId(),
-      type,
-      position,
-      data: { heading: "Send Message", content: label },
+      type: "node",
+      data: {
+        heading: "Drag event item",
+        name: "item",
+        label: "",
+        parameterArray: [
+          {
+            type: "textarea",
+            label: "Dragged event",
+            value: null,
+          },
+          {
+            type: "checkbox",
+            label: "Dragged event",
+            value: false,
+          },
+          {
+            type: "select",
+            label: "Dragged event",
+            value: null,
+          },
+        ],
+      },
+      position: position,
     };
-    setNodes((es) => es.concat(newNode));
+
+    setNodes((es) => {
+      const updatedNodes = es.concat(newNode);
+      localStorage.setItem("nodesData", JSON.stringify(updatedNodes));
+      return updatedNodes;
+    });
+
     setSelectedNode(newNode.id);
   };
   const onConnect = useCallback(
@@ -147,6 +174,15 @@ const OverviewFlow = () => {
       <ActionBarWrapper>
         <button className="download" onClick={() => createNode()}>
           Create a Node
+        </button>
+        <button
+          className="download"
+          onClick={() => {
+            localStorage.clear();
+            setNodes([]);
+          }}
+        >
+          Clear Canvas
         </button>
         <button className="download" onClick={saveHandler}>
           Download as JSON
