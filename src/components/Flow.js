@@ -285,6 +285,7 @@ const OverviewFlow = () => {
           onClick={() => {
             localStorage.clear();
             setNodes([]);
+            window.location.reload();
           }}
         >
           Clear Canvas
