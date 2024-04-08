@@ -28,6 +28,7 @@ import "reactflow/dist/style.css";
 import "./dnd.css";
 import "./updatenode.css";
 import CreateTask from "./SideBar/NodeCreator";
+import SaveFile from "./SideBar/FileSaver";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -49,6 +50,10 @@ const ActionBarWrapper = styled.div`
     border-radius: 8px;
     color: white;
   }
+
+  .download-cta {
+    background-color: #4f384a;
+  }
 `;
 const OverviewFlow = () => {
   const reactFlowWrapper = useRef(null);
@@ -59,6 +64,7 @@ const OverviewFlow = () => {
   const [selectedNode, setSelectedNode] = useState(null);
   const [isSelected, setIsSelected] = useState(false);
   const [showTaskCreator, setShowTaskCreator] = useState(false);
+  const [showFileSaver, setShowFileSaver] = useState(false);
 
   const onInit = (reactFlowInstance) => setReactFlowInstance(reactFlowInstance);
 
@@ -169,17 +175,15 @@ const OverviewFlow = () => {
     setShowTaskCreator(true);
   };
 
-  const downloadImage = (dataUrl) => {
-    const a = document.createElement("a");
-
-    a.setAttribute("download", "reactflow.png");
-    a.setAttribute("href", dataUrl);
-    a.click();
+  const saveFile = () => {
+    setShowFileSaver(true);
   };
-
   return (
     <>
       <ActionBarWrapper>
+        <button className="download-cta" onClick={() => saveFile()}>
+          Save the workflow
+        </button>
         <button className="download" onClick={() => createNode()}>
           Create a Node
         </button>
@@ -192,11 +196,8 @@ const OverviewFlow = () => {
         >
           Clear Canvas
         </button>
-        <button className="download" onClick={saveHandler}>
-          Download as JSON
-        </button>
 
-        <button className="download" onClick={saveHandler}>
+        <button className="download" onClick={() => {}}>
           Download as PNG
         </button>
       </ActionBarWrapper>
@@ -247,6 +248,10 @@ const OverviewFlow = () => {
               setEdges={setEdges}
               setShowTaskCreator={setShowTaskCreator}
             />
+          )}
+
+          {showFileSaver && (
+            <SaveFile nodes={nodes} setShowFileSaver={setShowFileSaver} />
           )}
         </ReactFlowProvider>
       </div>

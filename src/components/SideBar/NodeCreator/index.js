@@ -3,7 +3,7 @@ import { useState } from "react";
 import { OptionWrapper } from "../../CustomNode/MessageNode";
 import { nodes } from "../../../initial-elements";
 import { checkValuesNotNull } from "../../../utils";
-const EditMessageWrapper = styled.div`
+export const EditMessageWrapper = styled.div`
   background-color: #51424e;
   padding: 12px;
   display: flex;
@@ -80,9 +80,9 @@ export default function CreateTask({
 
     updatedData[activeIndex].id = activeIndex + "";
     updatedData[activeIndex].position.x =
-      activeIndex > 0 ? updatedData[activeIndex - 1].position?.x + 300 : 50;
+      activeIndex > 0 ? updatedData[activeIndex - 1].position?.x + 400 : 50;
     updatedData[activeIndex].position.y =
-      activeIndex > 0 ? updatedData[activeIndex - 1].position?.y + 200 : 200;
+      activeIndex > 0 ? updatedData[activeIndex - 1].position?.y + 0 : 200;
 
     if (type === "name" || type === "heading") {
       updatedData[activeIndex].data[type] = e.target.value;
@@ -115,6 +115,7 @@ export default function CreateTask({
     setShowTaskCreator(false);
     setNodes(nodesData);
     localStorage.setItem("nodesData", JSON.stringify(nodesData));
+    window.location.reload();
   };
 
   return (
