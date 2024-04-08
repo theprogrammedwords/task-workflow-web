@@ -45,7 +45,8 @@ const ActionBarWrapper = styled.div`
   padding: 4px;
 
   button,
-  input {
+  input,
+  label {
     cursor: pointer;
     background-color: #83727f;
     border: 1px solid #83727f;
@@ -98,6 +99,7 @@ const OverviewFlow = () => {
   const [showHelp, setShowHelp] = useState(false);
   const elementRef = useRef(null);
   const [jsonFileData, setJsonFileData] = useState(null);
+  const [fileName, setFileName] = useState(localStorage.getItem("fileName"));
 
   const onInit = (reactFlowInstance) => setReactFlowInstance(reactFlowInstance);
 
@@ -225,6 +227,7 @@ const OverviewFlow = () => {
           const parsedJson = JSON.parse(fileContent);
           setJsonFileData(parsedJson);
           localStorage.setItem("nodesData", JSON.stringify(parsedJson));
+          localStorage.setItem("fileName", file.name);
           window.location.reload();
         } catch (error) {
           console.error("Error parsing JSON:", error);
@@ -235,6 +238,8 @@ const OverviewFlow = () => {
     } else {
       console.error("FileReader is not supported in this browser.");
     }
+
+    setFileName(file.name);
   };
 
   const htmlToImageConvert = () => {
@@ -261,8 +266,16 @@ const OverviewFlow = () => {
           className="download"
           accept=".json"
           type="file"
+          hidden
           name=" Open a workflow (.json)"
         ></input>
+        <label
+          style={{ fontSize: "12px" }}
+          className="download-cta"
+          for="fileInput"
+        >
+          {fileName ? fileName : " Open a file"}
+        </label>
 
         <button className="download" onClick={() => createNode()}>
           Create a Node
