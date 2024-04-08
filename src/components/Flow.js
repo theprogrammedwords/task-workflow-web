@@ -44,7 +44,8 @@ const ActionBarWrapper = styled.div`
   background-color: #b8a6b4;
   padding: 4px;
 
-  button {
+  button,
+  input {
     cursor: pointer;
     background-color: #83727f;
     border: 1px solid #83727f;
@@ -96,6 +97,7 @@ const OverviewFlow = () => {
   const [showFileSaver, setShowFileSaver] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const elementRef = useRef(null);
+  const [jsonFileData, setJsonFileData] = useState(null);
 
   const onInit = (reactFlowInstance) => setReactFlowInstance(reactFlowInstance);
 
@@ -207,6 +209,34 @@ const OverviewFlow = () => {
     setShowFileSaver(true);
   };
 
+  const openFile = (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    // Check if FileReader is supported
+    if (window.FileReader) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        const fileContent = event.target.result;
+        try {
+          const parsedJson = JSON.parse(fileContent);
+          setJsonFileData(parsedJson);
+          localStorage.setItem("nodesData", JSON.stringify(parsedJson));
+          window.location.reload();
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+        }
+      };
+
+      reader.readAsText(file);
+    } else {
+      console.error("FileReader is not supported in this browser.");
+    }
+  };
+
   const htmlToImageConvert = () => {
     toPng(elementRef.current, { cacheBust: false })
       .then((dataUrl) => {
@@ -225,6 +255,15 @@ const OverviewFlow = () => {
         <button className="download-cta" onClick={() => saveFile()}>
           Save the workflow
         </button>
+        <input
+          onChange={(e) => openFile(e)}
+          id="fileInput"
+          className="download"
+          accept=".json"
+          type="file"
+          name=" Open a workflow (.json)"
+        ></input>
+
         <button className="download" onClick={() => createNode()}>
           Create a Node
         </button>
