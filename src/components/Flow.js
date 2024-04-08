@@ -263,6 +263,10 @@ const OverviewFlow = () => {
                     node seamlessly, drag and drop is working but task edit
                     functionality is not suported at the moment. :):
                   </li>
+                  <li>
+                    However you can have the feel of native file explorer where
+                    you can create nested folders and files :)
+                  </li>
                 </TipsWrapper>
               )}
               <Background color="#aaa" gap={16} />
