@@ -12,13 +12,26 @@ export default function SaveFile({ setShowFileSaver, nodes }) {
   };
   const [fileData, setFileData] = useState(initialData);
 
+  function download(filename, text) {
+    var element = document.createElement("a");
+    element.setAttribute(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+    );
+    element.setAttribute("download", filename);
+
+    element.style.display = "none";
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
   const saveFile = () => {
-    if (!isAllNodeisConnected(nodes, edges)) {
-      alert("cant save");
-      return;
-    }
+    var dictionary = JSON.stringify(fileData);
     localStorage.setItem("fileData", JSON.stringify(fileData));
     setShowFileSaver(false);
+    download(fileData.fileName + ".json", localStorage.getItem("nodesData"));
   };
 
   const onChangeHandler = (e) => {
