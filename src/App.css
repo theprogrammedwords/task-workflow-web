@@ -3,18 +3,26 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   overflow: hidden;
 
+  @media only screen and (min-width: 767px) {
+    .text-container-mobile {
+      display: none;
+    }
+  }
+
   @media only screen and (max-width: 767px) {
     .container{
       display: none;
     }
     margin: auto;
-    .text-container::before {
-      content: "Please use only in desktop mode :) ";
+    .text-container-mobile {
       font-size: 18px;
       color: #333;
-   
-      padding: 20px;
+      text-align: center;
+      align-items: center;
+      justify-content: center; /* Change to center */
+      display: flex;
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      height: 100vh; /* Optional: set height to fill viewport */
     }
 }
 

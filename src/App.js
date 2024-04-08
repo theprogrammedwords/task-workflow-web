@@ -20,7 +20,9 @@ function App() {
         {" "}
         <span>Task Workflow Web</span>
       </div>
-      <div className="text-container"></div>
+      <div className="text-container-mobile">
+        Please use only in desktop mode :)
+      </div>
       <div className="container">
         <div className="file-explorer">
           <Folder explorer={explorerData} handleInsertNode={handleInsertNode} />
