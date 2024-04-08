@@ -338,7 +338,13 @@ const OverviewFlow = () => {
                   </li>
                   <li>
                     Click on "Save the workflow" to Save all progress into a
-                    file
+                    file, it will save it into a JSON Format and same will be
+                    sent to a mock api.
+                  </li>
+                  <li>
+                    Click on "Open a file" to open any saved file, same will be
+                    loaded onto the canvas. Once loaded filename will be shown,
+                    you can click on it to open a different file.
                   </li>
                   <li>Click on "Hide Help" to hide the tips</li>
                   <strong>Control Buttons</strong>
