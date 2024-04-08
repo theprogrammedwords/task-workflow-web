@@ -30,6 +30,7 @@ export default function SaveFile({ setShowFileSaver, nodes }) {
   const saveFile = () => {
     var dictionary = JSON.stringify(fileData);
     localStorage.setItem("fileData", JSON.stringify(fileData));
+    localStorage.setItem("fileName", JSON.stringify(fileData.fileName));
     setShowFileSaver(false);
     download(fileData.fileName + ".json", localStorage.getItem("nodesData"));
     const headers = new Headers();
@@ -49,6 +50,7 @@ export default function SaveFile({ setShowFileSaver, nodes }) {
 
     fetch("https://eopffoflt1xjzf.m.pipedream.net", options).then((res) => {
       alert("Workflow sent successfully at Pipedream mock server");
+      window.location.reload();
     });
   };
 
