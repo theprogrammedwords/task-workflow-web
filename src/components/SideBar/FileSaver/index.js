@@ -32,6 +32,24 @@ export default function SaveFile({ setShowFileSaver, nodes }) {
     localStorage.setItem("fileData", JSON.stringify(fileData));
     setShowFileSaver(false);
     download(fileData.fileName + ".json", localStorage.getItem("nodesData"));
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    const body = {
+      data: JSON.parse(localStorage.getItem("nodesData")),
+      fileData: fileData,
+    };
+
+    const options = {
+      method: "POST",
+      headers,
+      mode: "cors",
+      body: JSON.stringify(body),
+    };
+
+    fetch("https://eopffoflt1xjzf.m.pipedream.net", options).then((res) => {
+      alert("Workflow sent successfully at Pipedream mock server");
+    });
   };
 
   const onChangeHandler = (e) => {
