@@ -21,3 +21,6 @@ URL : https://main--task-workflow-web.netlify.app/
 **File explorer**
 - It's a WIP, intention was to drag the file item and create a node seamlessly, drag and drop is working but task edit functionality is not supported at the moment. :)
 - However you can have the feel of native file explorer where you can create nested folders and files :)
+
+
+![Screenshot 2024-04-09 at 2 17 16 AM](https://github.com/theprogrammedwords/task-workflow-web/assets/33520299/e51e9650-b3b8-444d-962e-a63b005015e1)
