@@ -1,3 +1,5 @@
+**Features**
+
 **Action Buttons**
 - Click on "Create a Node" to add a task
 - Click on "Clear Canvas" to clear all tasks, you will lose progress if unsaved
