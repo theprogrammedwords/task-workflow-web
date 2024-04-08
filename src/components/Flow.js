@@ -30,6 +30,7 @@ import "./dnd.css";
 import "./updatenode.css";
 import CreateTask from "./SideBar/NodeCreator";
 import SaveFile from "./SideBar/FileSaver";
+import { toPng } from "html-to-image";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -44,6 +45,7 @@ const ActionBarWrapper = styled.div`
   padding: 4px;
 
   button {
+    cursor: pointer;
     background-color: #83727f;
     border: 1px solid #83727f;
     margin: 4px;
@@ -58,17 +60,26 @@ const ActionBarWrapper = styled.div`
 `;
 
 const TipsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  li {
-    color: #aaa;
-    font-weight: 600;
-  }
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 5%;
+  left: 40%;
+  right: 50%;
+  bottom: 50%;
+  width: 400px;
+  height: fit-content;
 
-  strong {
-    padding: 20px;
-    color: #83727f;
-  }
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #83727f;
+  padding: 20px;
+
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 `;
 const imageWidth = 1024;
 const imageHeight = 768;
@@ -84,6 +95,7 @@ const OverviewFlow = () => {
   const [showTaskCreator, setShowTaskCreator] = useState(false);
   const [showFileSaver, setShowFileSaver] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const elementRef = useRef(null);
 
   const onInit = (reactFlowInstance) => setReactFlowInstance(reactFlowInstance);
 
@@ -194,6 +206,19 @@ const OverviewFlow = () => {
     setShowHelp(false);
     setShowFileSaver(true);
   };
+
+  const htmlToImageConvert = () => {
+    toPng(elementRef.current, { cacheBust: false })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = "my-image-name.png";
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <ActionBarWrapper>
@@ -213,7 +238,7 @@ const OverviewFlow = () => {
           Clear Canvas
         </button>
 
-        <button className="download" onClick={() => {}}>
+        <button className="download" onClick={() => htmlToImageConvert()}>
           Download as PNG
         </button>
         <button className="download" onClick={() => setShowHelp(!showHelp)}>
@@ -224,6 +249,7 @@ const OverviewFlow = () => {
         <ReactFlowProvider>
           <div className="reactflow-wrapper" ref={reactFlowWrapper}>
             <ReactFlow
+              ref={elementRef}
               nodes={nodes}
               edges={edges}
               nodeTypes={nodeTypes}
@@ -237,6 +263,16 @@ const OverviewFlow = () => {
             >
               {showHelp && (
                 <TipsWrapper className="tips">
+                  <strong
+                    onClick={() => setShowHelp(false)}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row-reverse",
+                      cursor: "pointer",
+                    }}
+                  >
+                    X
+                  </strong>
                   <strong>Action Buttons</strong>
                   <li>Click on "Create a Node" to add a task</li>
                   <li>
@@ -244,7 +280,8 @@ const OverviewFlow = () => {
                     progress if unsaved
                   </li>
                   <li>
-                    Click on "Download as PNG" to download in image format
+                    Click on "Download as PNG" to download in image format. Make
+                    sure content is in centre of pan and not cut out
                   </li>
                   <li>
                     Click on "Save the workflow" to Save all progress into a
