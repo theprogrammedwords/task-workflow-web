@@ -1,7 +1,23 @@
 .app { 
   height: calc(100vh);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  overflow: hidden
+  overflow: hidden;
+
+  @media only screen and (max-width: 767px) {
+    .container{
+      display: none;
+    }
+    margin: auto;
+    .text-container::before {
+      content: "Please use only in desktop mode :) ";
+      font-size: 18px;
+      color: #333;
+   
+      padding: 20px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+}
+
 }
 
 .container{
