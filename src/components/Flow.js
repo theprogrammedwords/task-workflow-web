@@ -9,6 +9,7 @@ import ReactFlow, {
   MiniMap,
   Controls,
   ControlButton,
+  useReactFlow,
 } from "reactflow";
 
 // Components
@@ -55,6 +56,23 @@ const ActionBarWrapper = styled.div`
     background-color: #4f384a;
   }
 `;
+
+const TipsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  li {
+    color: #aaa;
+    font-weight: 600;
+  }
+
+  strong {
+    padding: 20px;
+    color: #83727f;
+  }
+`;
+const imageWidth = 1024;
+const imageHeight = 768;
+
 const OverviewFlow = () => {
   const reactFlowWrapper = useRef(null);
   const textRef = useRef(null);
@@ -65,6 +83,7 @@ const OverviewFlow = () => {
   const [isSelected, setIsSelected] = useState(false);
   const [showTaskCreator, setShowTaskCreator] = useState(false);
   const [showFileSaver, setShowFileSaver] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   const onInit = (reactFlowInstance) => setReactFlowInstance(reactFlowInstance);
 
@@ -166,16 +185,13 @@ const OverviewFlow = () => {
     );
   }, [nodeName, setNodes]);
 
-  const saveHandler = () => {
-    if (isAllNodeisConnected(nodes, edges)) alert("Congrats its correct");
-    else alert("Please connect source nodes (Cannot Save Flow)");
-  };
-
   const createNode = () => {
+    setShowHelp(false);
     setShowTaskCreator(true);
   };
 
   const saveFile = () => {
+    setShowHelp(false);
     setShowFileSaver(true);
   };
   return (
@@ -200,6 +216,9 @@ const OverviewFlow = () => {
         <button className="download" onClick={() => {}}>
           Download as PNG
         </button>
+        <button className="download" onClick={() => setShowHelp(!showHelp)}>
+          {showHelp ? "Hide" : "Show"} Help
+        </button>
       </ActionBarWrapper>
       <div className="dndflow">
         <ReactFlowProvider>
@@ -216,6 +235,36 @@ const OverviewFlow = () => {
               onDragOver={onDragOver}
               attributionPosition="top-right"
             >
+              {showHelp && (
+                <TipsWrapper className="tips">
+                  <strong>Action Buttons</strong>
+                  <li>Click on "Create a Node" to add a task</li>
+                  <li>
+                    Click on "Clear Canvas" to clear all tasks, you will lose
+                    progress if unsaved
+                  </li>
+                  <li>
+                    Click on "Download as PNG" to download in image format
+                  </li>
+                  <li>
+                    Click on "Save the workflow" to Save all progress into a
+                    file
+                  </li>
+                  <li>Click on "Hide Help" to hide the tips</li>
+                  <strong>Control Buttons</strong>
+                  <li>Click on "+" to Zoom In</li>
+                  <li>Click on "-" to Zoom Out</li>
+                  <li>Click on "Lock icon" to Lock the view</li>
+                  <strong>Minimap</strong>
+                  <li>You can use the minimap to navigate across the canvas</li>
+                  <strong>File explorer</strong>
+                  <li>
+                    Its a WIP, intention was to drag the file item and create a
+                    node seamlessly, drag and drop is working but task edit
+                    functionality is not suported at the moment. :):
+                  </li>
+                </TipsWrapper>
+              )}
               <Background color="#aaa" gap={16} />
             </ReactFlow>
           </div>
@@ -223,7 +272,7 @@ const OverviewFlow = () => {
           <MiniMap zoomable nodeStrokeWidth={3} style={minimapStyle} pannable />
 
           <Controls showFitView showInteractive>
-            <ControlButton
+            {/* <ControlButton
               onClick={() => alert("Something magical just happened. ✨")}
             >
               💾
@@ -232,7 +281,7 @@ const OverviewFlow = () => {
               onClick={() => alert("Something magical just happened. ✨")}
             >
               {"</>"}
-            </ControlButton>
+            </ControlButton> */}
           </Controls>
 
           <SideBar
